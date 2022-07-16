@@ -3,6 +3,8 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include "computerRoom.h"
+
 using namespace std;
 
 //身份抽象类
@@ -20,6 +22,18 @@ public:
 
     virtual void operateSubMenu() = 0;//将接口函数的集合写入该函数的定义中
 
+    virtual string getName(){return m_name;}
+    virtual string getPassword(){return m_password;}
+
+    virtual void setNamePassword(string name,string password){m_password=name;m_password=password;}
+    virtual void setName(string name){m_name=name;}
+    virtual void setPassword(string password){m_password=password;}
+
+protected:
+    vector<computerRoomClass>v_computerRooms;
+
+
+private:
     string m_name;//用户名
     string m_password;//密码
 };

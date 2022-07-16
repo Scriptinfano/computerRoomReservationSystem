@@ -8,9 +8,7 @@
 #include<vector>
 
 administratorClass::administratorClass(string name, string password) {
-
-    this->m_name = name;
-    this->m_password = password;
+    this->setNamePassword(name,password);
     this->initVector();
     this->initComputerRoom();//只需要初始化一次机房信息，因为机房的信息和老师及学生的信息不同，其不需要增删改查
 }

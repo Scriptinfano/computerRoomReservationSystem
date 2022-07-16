@@ -6,7 +6,6 @@
 #include"identity.h"
 #include"teacher.h"
 #include"student.h"
-#include "computerRoom.h"
 
 using namespace std;
 
@@ -49,5 +48,4 @@ public:
 private:
     vector<teacherClass>v_teachers;
     vector<studentClass>v_students;
-    vector<computerRoomClass>v_computerRooms;
 };

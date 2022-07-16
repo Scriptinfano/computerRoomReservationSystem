@@ -12,6 +12,14 @@ public:
         m_roomNumber = 0;
     }
 
+    int getRoomNumber() { return m_roomNumber; }
+
+    int getMaxVolume() { return m_maxVolume; }
+
+
+
+private:
+
     int m_roomNumber;
     int m_maxVolume;
 };

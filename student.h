@@ -10,7 +10,7 @@ using namespace std;
 class studentClass : public identityClass {
 public:
     //默认无参构造函数
-    studentClass()=default;
+    studentClass() = default;
 
     //有参构造函数
     studentClass(int id, string name, string passord);
@@ -36,10 +36,15 @@ public:
 
     //注销登录的功能继承父类无需再次定义
 
+    void setStudentId(int studentId) { m_studentId = studentId; }
 
-    //学生独有的成员变量
-    int m_studentId;
+    int getStudentId() { return m_studentId; }
 
-    //机房容器
-    vector<computerRoomClass>v_computerRooms;
+
+private:
+    vector<computerRoomClass> v_computerRooms;    //机房容器
+
+
+    int m_studentId;//学生独有的成员变量
+
 };
