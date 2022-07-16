@@ -29,6 +29,9 @@ public:
     virtual void setName(string name){m_name=name;}
     virtual void setPassword(string password){m_password=password;}
 
+    //初始化机房信息，因为机房信息只需要初始化一次，不同于initVector()需要多次调用
+    virtual void initComputerRoom();
+
 protected:
     vector<computerRoomClass>v_computerRooms;
 

@@ -42,7 +42,7 @@ public:
 
 
 private:
-    vector<computerRoomClass> v_computerRooms;    //机房容器
+    vector<computerRoomClass> v_computerRooms;    //学生需要访问机房信息，所以将机房信息放在类中的成员变量中
 
 
     int m_studentId;//学生独有的成员变量

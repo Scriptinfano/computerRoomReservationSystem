@@ -40,10 +40,11 @@ public:
     //初始化内部vector容器，将文件中的内容读取到vector容器中
     void initVector();
 
-    //初始化机房信息，因为机房信息只需要初始化一次，不同于initVector()需要多次调用
-    void initComputerRoom();
     //在添加账号时检测是否添加了重复的id
     bool checkRepeatId(int id,string identity);
+
+    //初始化机房信息的函数已继承自父类
+    virtual void initComputerRoom();
 
 private:
     vector<teacherClass>v_teachers;

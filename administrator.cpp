@@ -5,7 +5,7 @@
 #include "administrator.h"
 #include "globalFile.h"
 #include <fstream>
-#include<vector>
+#include <vector>
 
 administratorClass::administratorClass(string name, string password) {
     this->setNamePassword(name,password);
@@ -15,7 +15,7 @@ administratorClass::administratorClass(string name, string password) {
 
 //显示管理员子菜单
 void administratorClass::showSubMenu() {
-    cout << "欢迎管理员--" << this->m_name << "登录!" << endl;
+    cout << "欢迎管理员--" <<this->getName() << "登录!" << endl;
     cout << "=======================请输入您的选择=====================" << endl;
     cout << "|                       1 添加账号                      | " << endl;
     cout << "|                       2 查看账号                      |" << endl;
@@ -132,16 +132,16 @@ void administratorClass::addAccount() {
 //查看账号
 //以下两个函数是在用for_each()输出容器中学生类对象，机房类对象，老师类对象时的回调函数
 void printStudent(studentClass &student) {
-    cout << "学号：" << student.m_studentId << " 姓名：" << student.m_name << " 密码：" << student.m_password << endl;
+    cout << "学号：" << student.getStudentId() << " 姓名：" << student.getName() << " 密码：" << student.getPassword() << endl;
 }
 
 void printTeacher(teacherClass &teacher) {
-    cout << "职工号：" << teacher.m_employeeId << " 姓名：" << teacher.m_name << " 密码：" << teacher.m_password << endl;
+    cout << "职工号：" << teacher.getEmployeeId() << " 姓名：" << teacher.getName() << " 密码：" << teacher.getPassword() << endl;
 
 }
 
 void printComputerRoom(computerRoomClass &computerRoom) {
-    cout << "机房编号：" << computerRoom.m_roomNumber << " 机房最大容量：" << computerRoom.m_maxVolume << endl;
+    cout << "机房编号：" << computerRoom.getRoomNumber() << " 机房最大容量：" << computerRoom.getMaxVolume() << endl;
 }
 
 void administratorClass::showAccount() {
@@ -227,6 +227,12 @@ void administratorClass::initVector() {
     v_students.clear();
     v_computerRooms.clear();
 
+    //由于id,name,password等属性在各类中是私有变量，不能直接将文件中的信息放在其中，所以先将数据读到临时变量中，再通过接口函数将数据传入对象
+    int id;
+    string name;
+    string password;
+
+
     //读取学生文件中的信息
     ifstream fileIn;
     fileIn.open(studentFile, ios::in);
@@ -235,7 +241,9 @@ void administratorClass::initVector() {
         exit(0);
     }
     studentClass student;
-    while (fileIn >> student.m_studentId && fileIn >> student.m_name && fileIn >> student.m_password) {
+    while (fileIn >> id && fileIn >> name && fileIn >> password) {
+        student.setStudentId(id);
+        student.setNamePassword(name,password);
         v_students.push_back(student);
     }
     fileIn.close();
@@ -247,7 +255,9 @@ void administratorClass::initVector() {
         exit(0);
     }
     teacherClass teacher;
-    while (fileIn >> teacher.m_employeeId && fileIn >> teacher.m_name && fileIn >> teacher.m_password) {
+    while (fileIn >>id && fileIn >>name && fileIn >> password) {
+        teacher.setEmployeeId(id);
+        teacher.setNamePassword(name,password);
         v_teachers.push_back(teacher);
     }
     fileIn.close();
@@ -258,14 +268,14 @@ bool administratorClass::checkRepeatId(int id, string identity) {
     if (identity == "1")//检测学生的学号
     {
         for (auto studentInContainer: v_students) {
-            if (id == studentInContainer.m_studentId)//有重复的情况
+            if (id == studentInContainer.getStudentId())//有重复的情况
             {
                 return true;
             }
         }
     } else {
         for (auto teacherInContainer: v_teachers) {
-            if (id == teacherInContainer.m_employeeId) {
+            if (id == teacherInContainer.getEmployeeId()) {
                 return true;
             }
         }
@@ -287,7 +297,9 @@ void administratorClass::initComputerRoom() {
         exit(0);
     }
     computerRoomClass computerRoom;
-    while (fileIn >> computerRoom.m_roomNumber && fileIn >> computerRoom.m_maxVolume) {
+    int roomNumber,maxVolume;
+    while (fileIn >>roomNumber && fileIn >> maxVolume) {
+        computerRoom.setRoomNumberAndMaxVolume(roomNumber,maxVolume);
         v_computerRooms.push_back(computerRoom);
     }
     fileIn.close();
