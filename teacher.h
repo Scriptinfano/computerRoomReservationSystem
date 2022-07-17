@@ -1,5 +1,4 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include<string>
@@ -32,6 +31,7 @@ public:
     void setEmployeeId(int employeeId) { m_employeeId = employeeId; }
 
     int getEmployeeId() { return m_employeeId; }
+
 
 private:
     int m_employeeId;

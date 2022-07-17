@@ -4,7 +4,8 @@
 #include<string>
 #include<vector>
 #include "computerRoom.h"
-
+#include "globalFile.h"
+#include<fstream>
 using namespace std;
 
 //身份抽象类
@@ -30,14 +31,12 @@ public:
     virtual void setPassword(string password){m_password=password;}
 
     //初始化机房信息，因为机房信息只需要初始化一次，不同于initVector()需要多次调用
-    virtual void initComputerRoom();
 
 protected:
-    vector<computerRoomClass>v_computerRooms;
 
-
-private:
+   virtual void initComputerRoom();
+protected:
     string m_name;//用户名
     string m_password;//密码
+    vector<computerRoomClass>v_computerRooms;//便于子类身份访问机房信息，因此将机房容器定为protected
 };
-

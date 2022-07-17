@@ -13,7 +13,7 @@ public:
     studentClass() = default;
 
     //有参构造函数
-    studentClass(int id, string name, string passord);
+    studentClass(int id, string name, string password);
 
     //子菜单界面
     virtual void showSubMenu();
@@ -42,8 +42,7 @@ public:
 
 
 private:
-    vector<computerRoomClass> v_computerRooms;    //学生需要访问机房信息，所以将机房信息放在类中的成员变量中
-
+    //机房容器继承自父类
 
     int m_studentId;//学生独有的成员变量
 
