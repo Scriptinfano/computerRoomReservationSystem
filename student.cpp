@@ -3,7 +3,7 @@
 //
 
 #include "student.h"
-
+#include "reservation.h"
 
 //含参构造函数
 studentClass::studentClass(int id, string name, string password) {
@@ -29,7 +29,7 @@ void studentClass::showSubMenu() {
 }
 
 //申请预约
-void studentClass::applyAppointment() {
+void studentClass::applyReservation() {
     cout << "机房开放时间为周一至周五！" << endl;
     cout << "请选择申请预约的时间：" << endl;
     cout << "1、周一" << endl;
@@ -86,17 +86,88 @@ void studentClass::applyAppointment() {
 }
 
 //查看自身预约信息
-void studentClass::showMyAppointment() {
+void studentClass::showMyReservation() {
+    reservationClass reservation;
+    int reservationSize = reservation.getReservationSize();
+    if (reservationSize == 0) {
+        cout << "没有预约记录" << endl;
+        system("pause");
+        system("cls");
+        return;
+    }
+    for (int i = 0; i < reservationSize; i++) {
+        //stoi函数将数字字符串转换为整型输出
+        if (stoi(reservation.getReservationData(i, "studentId")) == this->getStudentId()) {
+            string dateHint = "预约日期：周", reservationDate = reservation.getReservationData(i, "dateHint");
+            if (reservationDate == "1")dateHint += "一";
+            else if (reservationDate == "2")dateHint += "二";
+            else if (reservationDate == "3")dateHint += "三";
+            else if (reservationDate == "4")dateHint += "四";
+            else dateHint += "五";
+            cout << dateHint;
 
+            cout << "时段：" << (reservation.getReservationData(i, "interval") == "1" ? "上午" : "下午");
+            cout << "机房：" << reservation.getReservationData(i, "roomId") << "号";
+            string status = "状态：";
+            if (reservation.getReservationData(i, "status") == "1") {
+                status += "审核中";
+            } else if (reservation.getReservationData(i, "status") == "2") {
+                status += "预约成功";
+            } else if (reservation.getReservationData(i, "status") == "-1") {
+                status += "审核未通过，预约失败";
+            } else {
+                //当reservation.getReservationData(i,"status")=="0"时
+                status += "预约已取消";
+            }
+            cout << "预约状态：" << status << endl;
+
+
+        }
+    }
+    system("pause");
+    system("cls");
 }
 
 //显示所有人的预约
-void studentClass::showAllAppointment() {
+void studentClass::showAllReservation() {
+    reservationClass reservation;
+    int reservationSize = reservation.getReservationSize();
+    if (reservationSize == 0) {
+        cout << "没有预约记录" << endl;
+        system("pause");
+        system("cls");
+        return;
+    }
+    for (int i = 0; i < reservationSize; i++) {
+        cout << i + 1 << "、";
+        string dateHint = "预约日期：周", reservationDate = reservation.getReservationData(i, "dateHint");
+        if (reservationDate == "1")dateHint += "一";
+        else if (reservationDate == "2")dateHint += "二";
+        else if (reservationDate == "3")dateHint += "三";
+        else if (reservationDate == "4")dateHint += "四";
+        else dateHint += "五";
+        cout << dateHint;
 
+        cout << "时段：" << (reservation.getReservationData(i, "interval") == "1" ? "上午" : "下午");
+        cout << "机房：" << reservation.getReservationData(i, "roomId") << "号";
+        string status = "状态：";
+        if (reservation.getReservationData(i, "status") == "1") {
+            status += "审核中";
+        } else if (reservation.getReservationData(i, "status") == "2") {
+            status += "预约成功";
+        } else if (reservation.getReservationData(i, "status") == "-1") {
+            status += "审核未通过，预约失败";
+        } else {
+            //当reservation.getReservationData(i,"status")=="0"时
+            status += "预约已取消";
+        }
+        cout << "预约状态：" << status << endl;
+
+    }
 }
 
 //取消预约
-void studentClass::cancelAppointment() {
+void studentClass::cancelReservation() {
 
 }
 
@@ -108,18 +179,18 @@ void studentClass::operateSubMenu() {
         getline(cin, select);
         if (select == "1") {
             //申请预约
-            student->applyAppointment();
+            student->applyReservation();
         } else if (select == "2") {
             //查看我的预约
-            student->showMyAppointment();
+            student->showMyReservation();
 
         } else if (select == "3") {
             //查看所有预约
-            student->showAllAppointment();
+            student->showAllReservation();
 
         } else if (select == "4") {
             //取消预约
-            student->cancelAppointment();
+            student->cancelReservation();
         } else if (select == "5") {
             //退出登录
             student->logout();

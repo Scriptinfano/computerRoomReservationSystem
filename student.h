@@ -23,16 +23,16 @@ public:
 
 
     //申请预约
-    void applyAppointment();
+    void applyReservation();
 
     //查看我的预约
-    void showMyAppointment();
+    void showMyReservation();
 
     //查看所有预约
-    void showAllAppointment();
+    void showAllReservation();
 
     //取消预约
-    void cancelAppointment();
+    void cancelReservation();
 
     //注销登录的功能继承父类无需再次定义
 

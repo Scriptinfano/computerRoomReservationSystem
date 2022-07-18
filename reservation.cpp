@@ -6,6 +6,8 @@ reservationClass::reservationClass() {
 
     ifstream fileIn(reservationFile, ios::in);
 
+    if (fileIsEmpty(fileIn) == 1)return;
+
     string date;//日期
     string interval;//时间段
     string roomId;//机房编号
@@ -13,9 +15,7 @@ reservationClass::reservationClass() {
     string studentName;//学生姓名
     string status;//预约状态
 
-    this->autoSetReservationSize();
 
-    int i = 0;
     while (fileIn >> date && fileIn >> interval && fileIn >> roomId && fileIn >> studentId && fileIn >> studentName &&
            fileIn >> status) {
         map<string, string> singleReservationInformation;//预约信息单元容器，六个预约信息单元组成一个完整的预约信息
@@ -27,23 +27,35 @@ reservationClass::reservationClass() {
         reservationInformationToMap(studentId, singleReservationInformation);
         reservationInformationToMap(studentName, singleReservationInformation);
         reservationInformationToMap(status, singleReservationInformation);
-        m_reservationData.insert(make_pair(i+1, singleReservationInformation));
-        i++;
+        m_reservationData.insert(make_pair(m_reservationData.size(), singleReservationInformation));//
     }
+    fileIn.close();
 }
 
 void reservationClass::updateReservation() {
-
+    int reservationSize = m_reservationData.size();
+    if (reservationSize == 0) {
+        return;
+    }
+    ofstream fileOut(reservationFile, ios::out | ios::trunc);
+    for (int i = 0; i < reservationSize; i++) {
+        fileOut << "date:" << m_reservationData.at(i).at("date") << " ";
+        fileOut << "interval:" << m_reservationData.at(i).at("interval") << " ";
+        fileOut << "roomId:" << m_reservationData.at(i).at("roomId") << " ";
+        fileOut << "studentId:" << m_reservationData.at(i).at("studentId") << " ";
+        fileOut << "studentName:" << m_reservationData.at(i).at("studentName") << " ";
+        fileOut << "status:" << m_reservationData.at(i).at("status") << " " << endl;
+    }
+    fileOut.close();
 }
 
-void reservationClass::getSizeOfReservation() {
-
+int reservationClass::getReservationSize() {
+    return m_reservationData.size();
 }
 
-void reservationClass::setReservationSize(int reservationSize) {
-    m_reservationSize = reservationSize;
+string reservationClass::getReservationData(int index, string key) {
+    return m_reservationData.at(index).at(key);
 }
 
-void reservationClass::autoSetReservationSize() {
-    m_reservationSize = m_reservationData.size();
-}
+
+
