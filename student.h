@@ -28,8 +28,7 @@ public:
     //查看我的预约
     void showMyReservation();
 
-    //查看所有预约
-    void showAllReservation();
+    //查看所有预约函数继承基类，完全使用基类代码
 
     //取消预约
     void cancelReservation();
@@ -40,6 +39,10 @@ public:
 
     int getStudentId() { return m_studentId; }
 
+    virtual void setNamePassword(string name, string password) {
+        m_name = name;
+        m_password = password;
+    }
 
 private:
     //机房容器继承自父类

@@ -21,13 +21,11 @@ void teacherClass::showSubMenu() {
 
 }
 
-void teacherClass::showAllReservation() {
-
-}
 
 void teacherClass::verifyReservation() {
 
 }
+
 
 void teacherClass::operateSubMenu() {
     string select = "";
