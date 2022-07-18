@@ -1,5 +1,4 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include<string>
@@ -24,7 +23,6 @@ public:
     virtual void operateSubMenu();
 
     //查看所有预约
-    void showAllReservation();
 
     //审核预约
     void verifyReservation();
@@ -32,6 +30,7 @@ public:
     void setEmployeeId(int employeeId) { m_employeeId = employeeId; }
 
     int getEmployeeId() { return m_employeeId; }
+
 
 private:
     int m_employeeId;

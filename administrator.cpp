@@ -10,7 +10,7 @@
 administratorClass::administratorClass(string name, string password) {
     this->setNamePassword(name,password);
     this->initVector();
-    this->initComputerRoom();//只需要初始化一次机房信息，因为机房的信息和老师及学生的信息不同，其不需要增删改查
+    this->initComputerRoom();
 }
 
 //显示管理员子菜单
@@ -59,15 +59,11 @@ void administratorClass::addAccount() {
 
     ifstream fileIn(fileName, ios::in);
     ofstream fileOut(fileName, ios::out | ios::app);
-    if (!fileOut.is_open() || !fileIn.is_open()) {
-        cout << "文件不存在，打开失败" << endl;
-        exit(0);
-    }
 
 
     int idFromBoard;//用户输入的id
     string nameFromBoard;
-    string passwardFromBoard;
+    string passwordFromBoard;
     bool judgmentOfRepeatedInput;
     bool judgementOfReInputHint = false;
     do {
@@ -117,9 +113,9 @@ void administratorClass::addAccount() {
     getline(cin, nameFromBoard);
 
     cout << "请输入密码：";
-    getline(cin, passwardFromBoard);
+    getline(cin, passwordFromBoard);
 
-    fileOut << idFromBoard << " " << nameFromBoard << " " << passwardFromBoard << " " << endl;
+    fileOut << idFromBoard << " " << nameFromBoard << " " << passwordFromBoard << " " << endl;
     cout << "添加成功" << endl;
 
     this->initVector();//刚刚添加了一个人，但是只写入了文件没有写入容器，通过此函数更新一下容器，让容器重新读取文件中的数据
@@ -130,7 +126,7 @@ void administratorClass::addAccount() {
 }
 
 //查看账号
-//以下两个函数是在用for_each()输出容器中学生类对象，机房类对象，老师类对象时的回调函数
+//以下三个函数是在用for_each()输出容器中学生类对象，机房类对象，老师类对象时的回调函数
 void printStudent(studentClass &student) {
     cout << "学号：" << student.getStudentId() << " 姓名：" << student.getName() << " 密码：" << student.getPassword() << endl;
 }
@@ -236,10 +232,6 @@ void administratorClass::initVector() {
     //读取学生文件中的信息
     ifstream fileIn;
     fileIn.open(studentFile, ios::in);
-    if (!fileIn.is_open()) {
-        cout << "打开失败" << endl;
-        exit(0);
-    }
     studentClass student;
     while (fileIn >> id && fileIn >> name && fileIn >> password) {
         student.setStudentId(id);
@@ -250,10 +242,6 @@ void administratorClass::initVector() {
 
     //读取老师文件信息
     fileIn.open(teacherFile, ios::in);
-    if (!fileIn.is_open()) {
-        cout << "打开失败" << endl;
-        exit(0);
-    }
     teacherClass teacher;
     while (fileIn >>id && fileIn >>name && fileIn >> password) {
         teacher.setEmployeeId(id);
@@ -281,26 +269,4 @@ bool administratorClass::checkRepeatId(int id, string identity) {
         }
     }
     return false;//代表没有重复
-}
-
-void administratorClass::initComputerRoom() {
-//读取机房文件信息
-    ifstream fileIn(computerRoomFile, ios::in);
-    if (!fileIn.is_open()) {
-        cout << "文件不存在" << endl;
-        exit(0);
-    }
-
-    fileIn.open(computerRoomFile, ios::in);
-    if (!fileIn.is_open()) {
-        cout << "打开失败" << endl;
-        exit(0);
-    }
-    computerRoomClass computerRoom;
-    int roomNumber,maxVolume;
-    while (fileIn >>roomNumber && fileIn >> maxVolume) {
-        computerRoom.setRoomNumberAndMaxVolume(roomNumber,maxVolume);
-        v_computerRooms.push_back(computerRoom);
-    }
-    fileIn.close();
 }

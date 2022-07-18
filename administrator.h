@@ -44,9 +44,15 @@ public:
     bool checkRepeatId(int id,string identity);
 
     //初始化机房信息的函数已继承自父类
-    virtual void initComputerRoom();
 
 private:
     vector<teacherClass>v_teachers;
     vector<studentClass>v_students;
 };
+
+//以下三个函数是给for_each提供的回调函数
+void printStudent(studentClass &student);
+
+void printTeacher(teacherClass &teacher);
+
+void printComputerRoom(computerRoomClass &computerRoom);

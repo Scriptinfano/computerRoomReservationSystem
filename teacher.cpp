@@ -7,6 +7,7 @@
 teacherClass::teacherClass(int employeeId, string name, string password) {
     this->setEmployeeId(employeeId);
     this->setNamePassword(name, password);
+    this->initComputerRoom();
 }
 
 void teacherClass::showSubMenu() {
@@ -20,13 +21,11 @@ void teacherClass::showSubMenu() {
 
 }
 
-void teacherClass::showAllReservation() {
-
-}
 
 void teacherClass::verifyReservation() {
 
 }
+
 
 void teacherClass::operateSubMenu() {
     string select = "";
