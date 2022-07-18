@@ -5,13 +5,13 @@
 #include "teacher.h"
 
 teacherClass::teacherClass(int employeeId, string name, string password) {
-    this->m_employeeId = employeeId;
-    this->m_name = name;
-    this->m_password = password;
+    this->setEmployeeId(employeeId);
+    this->setNamePassword(name, password);
+    this->initComputerRoom();
 }
 
 void teacherClass::showSubMenu() {
-    cout << "欢迎教师--" << this->m_name << "登录!" << endl;
+    cout << "欢迎教师--" << this->getName() << "登录!" << endl;
     cout << "=======================请输入您的选择=====================" << endl;
     cout << "|                       1 查看所有预约                      | " << endl;
     cout << "|                       2 审核预约                      |" << endl;
@@ -21,13 +21,11 @@ void teacherClass::showSubMenu() {
 
 }
 
-void teacherClass::showAllReservation() {
-
-}
 
 void teacherClass::verifyReservation() {
 
 }
+
 
 void teacherClass::operateSubMenu() {
     string select = "";

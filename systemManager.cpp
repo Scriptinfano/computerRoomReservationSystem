@@ -4,7 +4,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-
+#include"globalFunction.h"
 #include "systemManager.h"
 #include "identity.h"
 #include "student.h"
@@ -25,11 +25,6 @@ void systemManager::login(string fileName, identityNameUnion identityName) {
     identityClass *person = nullptr;//创建一个父类指针便于实现多态
 
     ifstream fileIn(fileName, ios::in);
-    if (!fileIn.is_open()) {
-        cout << "文件不存在" << endl;
-        fileIn.close();
-        return;
-    }
 
     //准备一些变量接受用户的输入
     int id = 0;//工号或学号
