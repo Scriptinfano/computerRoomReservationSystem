@@ -3,7 +3,6 @@
 #include <iostream>
 
 using namespace std;
-enum identityNameUnion{student=1,teacher,administrator};
 class systemManager {
 
 public:

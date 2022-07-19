@@ -57,5 +57,9 @@ string reservationClass::getReservationData(int index, string key) {
     return m_reservationData.at(index).at(key);
 }
 
+void reservationClass::setStatus(int index, string status) {
+m_reservationData.at(index).at("status")=status;
+}
+
 
 

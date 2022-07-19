@@ -41,7 +41,7 @@
 #include<string>
 #include"systemManager.h"
 #include"globalFile.h"
-
+#include"identityName.h"
 using namespace std;
 
 int main() {

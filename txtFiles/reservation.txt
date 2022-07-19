@@ -1,1 +1,6 @@
 date:1 interval:1 roomId:2 studentId:1 studentName:ming status:1 
+date:3 interval:2 roomId:2 studentId:2 studentName:shang status:1 
+date:4 interval:2 roomId:2 studentId:3 studentName:zhang status:1 
+date:1 interval:1 roomId:2 studentId:1 studentName:ming status:0 
+date:1 interval:1 roomId:2 studentId:1 studentName:ming status:1 
+date:1 interval:1 roomId:2 studentId:1 studentName:ming status:1 

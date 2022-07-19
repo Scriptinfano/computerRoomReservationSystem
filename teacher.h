@@ -6,7 +6,6 @@
 using namespace std;
 
 #include "identity.h"
-
 class teacherClass : public identityClass {
 public:
 
@@ -22,6 +21,9 @@ public:
     //操作子菜单
     virtual void operateSubMenu();
 
+    //显示所有预约
+    void showAllReservation() override;
+
     //查看所有预约
 
     //审核预约
@@ -31,6 +33,7 @@ public:
 
     int getEmployeeId() { return m_employeeId; }
 
+    vector<int> v_reservationToBeVerify;
 
 private:
     int m_employeeId;

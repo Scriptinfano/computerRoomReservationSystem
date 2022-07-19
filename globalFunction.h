@@ -5,8 +5,12 @@
 #include<fstream>
 #include<string>
 #include<map>
+#include"reservation.h"
+#include"identityName.h"
 using namespace std;
 
 int fileIsEmpty(ifstream &fileIn);
 
 void reservationInformationToMap(string &reservationUnit,map<string,string>&singleReservationInformation);
+
+

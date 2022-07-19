@@ -104,11 +104,11 @@ void studentClass::showMyReservation() {
             else if (reservationDate == "3")dateHint += "三";
             else if (reservationDate == "4")dateHint += "四";
             else dateHint += "五";
-            cout << dateHint;
+            cout << dateHint << " ";
 
-            cout << "时段：" << (reservation.getReservationData(i, "interval") == "1" ? "上午" : "下午");
-            cout << "机房：" << reservation.getReservationData(i, "roomId") << "号";
-            string status = "状态：";
+            cout << "时段：" << (reservation.getReservationData(i, "interval") == "1" ? "上午" : "下午") << " ";
+            cout << "机房：" << reservation.getReservationData(i, "roomId") << "号" << " ";
+            string status = "预约状态：";
             if (reservation.getReservationData(i, "status") == "1") {
                 status += "审核中";
             } else if (reservation.getReservationData(i, "status") == "2") {
@@ -119,7 +119,7 @@ void studentClass::showMyReservation() {
                 //当reservation.getReservationData(i,"status")=="0"时
                 status += "预约已取消";
             }
-            cout << "预约状态：" << status << endl;
+            cout << status << endl;
 
 
         }
@@ -132,7 +132,75 @@ void studentClass::showMyReservation() {
 
 //取消预约
 void studentClass::cancelReservation() {
+    reservationClass reservation;
+    int reservationSize = reservation.getReservationSize();
+    if (reservationSize == 0) {
+        cout << "没有预约记录" << endl;
+        system("pause");
+        system("cls");
+        return;
+    }
+    cout << "以下是你的审核中或预约成功的记录" << endl;
 
+    vector<int> v_indexOfOuterMap;//下标记录数组，将符合条件的预约记录实际在外层map容器中的key值存在vector容器中
+    int index = 0;//输出可以取消的预约记录时，前面的编号，从1开始算
+    for (int i = 0; i < reservationSize; i++) {
+        if (stoi(reservation.getReservationData(i, "studentId")) == this->getStudentId())//只能取消自己的预约
+        {
+            if (reservation.getReservationData(i, "status") == "1" ||
+                reservation.getReservationData(i, "status") == "2")//只能取消审核中和审核通过的预约
+            {
+                v_indexOfOuterMap.push_back(i);
+
+                //输出当前预约记录的信息
+                cout<<++index<<"、";
+                string dateHint = "预约日期：周", reservationDate = reservation.getReservationData(i, "date");
+                if (reservationDate == "1")dateHint += "一";
+                else if (reservationDate == "2")dateHint += "二";
+                else if (reservationDate == "3")dateHint += "三";
+                else if (reservationDate == "4")dateHint += "四";
+                else dateHint += "五";
+                cout << dateHint << " ";
+                cout << "时段：" << (reservation.getReservationData(i, "interval") == "1" ? "上午" : "下午") << " ";
+                cout << "机房：" << reservation.getReservationData(i, "roomId") << "号" << " ";
+                string status = "预约状态：";
+                if (reservation.getReservationData(i, "status") == "1") {
+                    status += "审核中";
+                } else {
+                    status += "预约成功";
+                }
+                cout << status << endl;
+
+            }
+        }
+    }
+
+
+    cout<<"请输入取消的记录编号，输入0时返回"<<endl;
+    string select;
+    while(true)
+    {
+        getline(cin,select);
+        int int_select=stoi(select);
+        if(int_select>=0&&int_select<=v_indexOfOuterMap.size())
+        {
+            if(int_select==0)return;
+            else
+            {
+                reservation.setStatus(v_indexOfOuterMap.at(int_select-1),"0");
+                reservation.updateReservation();//将容器中已经修改的预约记录再重新写到文件中
+                cout<<"已取消预约"<<endl;
+                break;
+
+            }
+        }else
+        {
+            cout<<"输入有误，请重新输入：";
+            continue;
+        }
+    }
+    system("pause");
+    system("cls");
 }
 
 void studentClass::operateSubMenu() {

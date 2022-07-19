@@ -34,11 +34,11 @@ public://以下是两个纯虚函数，每种身份的执行代码不相同
         m_password = password;
     }
 
+    virtual void showAllReservation();
 
 protected:
     //初始化机房信息，因为机房信息只需要初始化一次，不同于initVector()需要多次调用
 
-    void showAllReservation();
 
     string m_name;//用户名
     string m_password;//密码

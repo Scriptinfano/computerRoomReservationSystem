@@ -32,3 +32,4 @@ void reservationInformationToMap(string &reservationUnit, map<string, string> &s
     }
 
 }
+
