@@ -61,9 +61,8 @@ void teacherClass::verifyReservation() {
                     cout << "输入的选项有误，请重新输入" << endl;
                     break;
                 }
-
-
                 cout << "已审核预约" << endl;
+                reservation.updateReservation();
                 break;
 
             }
